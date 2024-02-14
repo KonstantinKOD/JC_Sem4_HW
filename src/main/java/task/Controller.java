@@ -8,30 +8,29 @@ public class Controller {
                 new Customer("Павел", 32),
                 new Customer("Евгений", 31),
                 new Customer("Алена", 30),
-                new Customer("Иван", 17)
+                new Customer("Кирилл", 17)
         };
         Product[] products = new Product[]{
-                new Product("Мяч", 99.99),
-                new Product("Бутерброд", 249.99),
-                new Product("Стол", 14900.90),
-                new Product("Машина", 2500000.10),
-                new Product("Ракета", 1150000000.49),
-                new Product("Алкоголь", 250.50)
+                new Product("Мяч", 99.99, 15),
+                new Product("Бутерброд", 249.99, 5),
+                new Product("Стол", 14900.90, 3),
+                new Product("Машина", 2500000.10, 2),
+                new Product("Ракета", 1150000000.49, 1),
+                new Product("Алкоголь", 250.50, 50)
         };
-        Order[] orders = new Order[5];
-        orders[0] = Controller.makePursh(customers, products, "Ракета", 2, "Павел");
-        orders[1] = Controller.makePursh(customers, products, "Стол", 1, "Евгений");
-        orders[2] = Controller.makePursh(customers, products, "Машина", 3, "Алена");
-        orders[3] = Controller.makePursh(customers, products, "Стол", 5, "Евгений");
-        orders[4] = Controller.makePursh(customers, products, "Дом", 1, "Павел");
-        // order[5] создан специально для переполнения массива
-        orders[5] = Controller.makePursh(customers, products, "Бутерброд", 101, "Евгений");
+        Order[] orders = new Order[6];
+        orders[0] = Controller.makePursh(customers, products, "Ракета", "Павел", 3);
+        orders[1] = Controller.makePursh(customers, products, "Стол", "Евгений", 6);
+        orders[2] = Controller.makePursh(customers, products, "Машина", "Алена", 1);
+        orders[3] = Controller.makePursh(customers, products, "Стол", "Евгений", 3);
+        orders[4] = Controller.makePursh(customers, products, "Дом", "Павел", 1);
+        orders[4] = Controller.makePursh(customers, products, "Бутерброд", "Евгений", 10);
 
         for (Order order: orders) {
             System.out.println(order);
         }
     }
-    private static Order makePursh(Customer[] customers, Product[] products, String getNameOfProduct, int quantity, String name) throws CustomerExc{
+    private static Order makePursh(Customer[] customers, Product[] products, String getNameOfProduct, String name, int quantityOrder) throws CustomerExc{
         Order order = null;
         Customer customer = null;
         Product product = null;
@@ -43,8 +42,8 @@ public class Controller {
             if (product == null)
                 throw new ProductExc(getNameOfProduct);
             try{
-                if (quantity <= 0 || quantity >=100)
-                    throw new QuantityExc(getNameOfProduct, name, quantity);
+                if (product.getQuantity() == 0 || quantityOrder > product.getQuantity())
+                    throw new QuantityExc(getNameOfProduct, name, quantityOrder);
             } catch (QuantityExc e){
                 System.out.println(e);
             }
@@ -54,8 +53,7 @@ public class Controller {
             }
             if (customer == null)
                 throw new CustomerExc(name);
-            order = new Order(customer, product, quantity);
-
+            order = new Order(customer, product, quantityOrder);
         }
         catch (ProductExc e){
             System.out.println(e);

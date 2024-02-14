@@ -3,12 +3,20 @@ package task.classes;
 public class Order {
     private Customer customer;
     private Product product;
-    private int quantity;
+    private static int quantityOrder;
 
-    public Order(Customer customer, Product product, int quantity) {
+    public Order(Customer customer, Product product, int quantityOrder) {
         this.customer = customer;
         this.product = product;
-        this.quantity = quantity;
+        this.quantityOrder = quantityOrder;
+    }
+
+    public static int getQuantityOrder() {
+        return quantityOrder;
+    }
+
+    public void setQuantityOrder(int quantityOrder) {
+        this.quantityOrder = quantityOrder;
     }
 
     public Customer getCustomer() {
@@ -19,10 +27,6 @@ public class Order {
         return product;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
@@ -31,12 +35,8 @@ public class Order {
         this.product = product;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     @Override
     public String toString() {
-        return String.format("%s %s %s", customer, product, quantity);
+        return String.format("%s %s", customer, product);
     }
 }

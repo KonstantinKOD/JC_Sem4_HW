@@ -27,8 +27,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Покупатель " +
-                "Имя: " + name + '\'' +
+        return "Имя покупателя " + name + '\'' +
                 " Возраст: " + age;
     }
 }
